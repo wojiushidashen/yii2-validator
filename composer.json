@@ -6,7 +6,8 @@
         "validator",
         "\u9a8c\u8bc1\u5668"
     ],
-    "type": "library",
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
     "autoload": {
         "psr-4": {
             "King\\Yii2Validator\\": "src/"
