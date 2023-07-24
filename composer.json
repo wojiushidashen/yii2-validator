@@ -1,5 +1,5 @@
 {
-    "name": "WYZ/yii2-validator",
+    "name": "ezijing/yii2-validator",
     "description": "Yii2\u7684\u53c2\u6570\u9a8c\u8bc1\u5668\uff0c\u517c\u5bb9model\u7684rules;\u51cf\u5c11\u9a8c\u8bc1\u53c2\u6570\u7684\u65f6\u5019\u8981\u65b0\u5efamodel\u7684\u70e6\u607c",
     "keywords": [
         "yii2-validator",
