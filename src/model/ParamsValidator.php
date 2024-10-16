@@ -31,7 +31,7 @@ class ParamsValidator extends Component implements Validator
      * @param array $rules 验证的规则.
      * @return array [参数1：true成功 false失败, 参数2：错误消息]
      */
-    public function validate(array $data, array $rules = [])
+    public function validate(array &$data, array $rules = [])
     {
         $this->validatorModel->setRules($rules);
         $this->validatorModel->load($data, '');
@@ -41,7 +41,25 @@ class ParamsValidator extends Component implements Validator
             Yii::error(sprintf('参数验证失败：%s', $errorMsg));
             $responseData = [false, $errorMsg];
         } else {
+            $defaultAttrKeyNameMap = [];
+            foreach ($rules as $rule) {
+                if (isset($rule[1]) && ('default' === $rule[1] || 'trim' === $rule[1] || 'filter' === $rule[1])) {
+                    if (is_array($rule[0])) {
+                        foreach ($rule[0] as $attyKeyName) {
+                            $defaultAttrKeyNameMap[$attyKeyName] = $attyKeyName;
+                        }
+                    } else {
+                        $defaultAttrKeyNameMap[(string)$rule[0]] = $rule[0];
+                    }
+                }
+            }
             $responseData = [true, ''];
+            foreach ($this->validatorModel->attributes() as $attributeName) {
+                // 给default、filter和trim规则数据赋值
+                if (isset($defaultAttrKeyNameMap[$attributeName])) {
+                    $data[$attributeName] = $this->validatorModel->{$attributeName} ?? null;
+                }
+            }
         }
 
         return $responseData;

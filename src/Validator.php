@@ -12,5 +12,5 @@ interface Validator
      * @param array $rules 验验证的规则.
      * @return mixed
      */
-    public function validate(array $data, array $rules = []);
+    public function validate(array &$data, array $rules = []);
 }
